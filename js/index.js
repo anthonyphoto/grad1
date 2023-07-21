@@ -12,12 +12,18 @@ const SONG_LIST = [
     owner: 'Anthony',
     title: 'Vitamin C - Graduation (Friends Forever)',
     path: './media/grad.m4a',
-    weight: 50,    
+    weight: 60,    
   }, 
   {
     owner: 'Anthony',
     title: 'One Republic - Good Life',
     path: './media/goodlife.m4a',
+    weight: 20,
+  }, 
+  {
+    owner: 'Anthony',
+    title: 'Limahl - Never Ending Story',
+    path: './media/neverending.m4a',
     weight: 20,
   }, 
   {
@@ -60,34 +66,70 @@ function playNext() {
   $('#js-music-info').css('display', 'block');
 }
 
+function fadeOut(i, height) {
+  if (i <= 0) {
+    setTimeout(() => {
+      $('#js-cover-greeting').css('display', 'none');
+      $('#js-page-loader').css('display', 'none');
+      $('#js-more-pic').css('display', 'block');
+      $('#js-btn-mute').css('display', 'flex');
+      $('#js-msg-bottom').css('display', 'block');
+
+      $('#js-landing').css('height', height);
+      return;
+      }, 200);
+      return;
+  }
+
+  setTimeout(() => {
+    $('#js-cover-greeting').css('opacity', i*0.01);
+    fadeOut(i-1, height);
+  }, 15);
+}
+
+function fadeOutCircle(i, height) {
+  if (i <= 0) {
+    $('#js-cover-greeting').css('background-image', 'url(' + './img/main-color-cir.jpg' + ')');
+    $('#js-cover-greeting').css('opacity', 1);
+    setTimeout(()=>{
+      $('#js-landing').css('background-image', 'url(' + './img/main-color.jpg' + ')');
+      setTimeout(()=> {
+        return fadeOut(100, height);
+      }, 100);
+    }, 100);
+    return;
+  }
+  setTimeout(() => {
+    $('#js-cover-greeting').css('opacity', i*0.01);
+    fadeOutCircle(i-1, height);
+  }, 20);
+
+
+}
 function playMusic() {
   window.document.querySelector('audio').play();
   $('#js-owner').text(SONG_LIST[SONG_TRACK].owner);
   $('#js-music-title').text(SONG_LIST[SONG_TRACK].title);
-  $('#js-cover-greeting').hide();
+  $('#js-greeting-text').hide();
+  $('#js-msg-bottom').css('display', 'none');
   $('.intro').css('display', 'none');
   $('#js-main-img').addClass('fi_short');  
-  $('#js-page-loader').css('display', 'block');
-
-  setTimeout(function () {
-    $('#js-page-loader-img').css('opacity', '0.3');
-  }, 1000);
-
-  setTimeout(function () {
-    slideShowPlay();
   
-    $('#js-page-loader').css('display', 'none');
-    $('#js-more-pic').css('display', 'block');
-    $('#js-btn-mute').css('display', 'flex');
-    $('#js-msg-bottom').css('display', 'block');
-  }, 3000);
+  const height =  $('#js-landing').height();
+  const maxHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+  
+  $('#js-landing').css('height', maxHeight);
+  
+  fadeOutCircle(100, height);
 }
 
 function changeBackground() {
   SLIDE_STOP = true; // stop slide show
-  $('#js-main-img1').hide();
-  $('#js-main-img2').hide();
-  $('#js-main-img3').hide();
+  // $('#js-main-img1').hide();
+  // $('#js-main-img2').hide();
+  // $('#js-main-img3').hide();
+
+  $('#js-landing').css('background', 'none');
   $('#js-main-img-next').css('display', 'block');
 
 }
@@ -126,14 +168,16 @@ function renderMainImage() {
   const bottomFactor = isLandscape ? '20%' : '40%';
   const greetingTopFactor = isLandscape ? 0.7 : 0.53;
   SCROLL_HEIGHT = height*greetingTopFactor*1.1;
-  $('#js-bottom').css('margin-top', height*greetingTopFactor*1.05);
+
+  $('#js-landing').css('height', height*greetingTopFactor*1.05);
+  // $('#js-bottom').css('margin-top', height*greetingTopFactor*1.05);
   $('.intro').css('height', height * heightFactor);
   $('.intro').css('bottom', bottomFactor);
 
   if (!isLandscape) {
     $('#js-greeting').css('background-position', 'top right');
     $('#js-greeting').css('background-size', '100%');
-    $('#js-mobile-logo').css('width', '220px');
+    $('#js-mobile-logo').css('width', '240px');
     $('.img_p, .img_l').css('padding', '7% 0');
     $('.img_p, .img_l').css('margin-bottom', '11%');
     $('.font_m').css('font-size', '1.4rem');
