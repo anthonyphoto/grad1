@@ -20,24 +20,24 @@ const SONG_LIST = [
     path: './media/goodlife.m4a',
     weight: 20,
   }, 
-  {
-    owner: 'Anthony',
-    title: 'Limahl - Never Ending Story',
-    path: './media/neverending.m4a',
-    weight: 20,
-  }, 
-  {
-    owner: 'Anthony',
-    title: 'Kina Grannis - Can\'t Help Falling In Love',
-    path: './media/song-fallin.m4a',
-    weight: 10,
-  }, 
-  {
-    owner: 'Anthony',
-    title: 'UP - Married Life',
-    path: './media/up.mp3',
-    weight: 10,
-  }, 
+  // {
+  //   owner: 'Anthony',
+  //   title: 'Limahl - Never Ending Story',
+  //   path: './media/neverending.m4a',
+  //   weight: 20,
+  // }, 
+  // {
+  //   owner: 'Anthony',
+  //   title: 'Kina Grannis - Can\'t Help Falling In Love',
+  //   path: './media/song-fallin.m4a',
+  //   weight: 10,
+  // }, 
+  // {
+  //   owner: 'Anthony',
+  //   title: 'UP - Married Life',
+  //   path: './media/up.mp3',
+  //   weight: 10,
+  // }, 
   // {
   //   owner: 'Anthony',
   //   title: 'Si Tu Vois Ma Mère – Tatiana Eva-Marie & Avalon Jazz Band',
@@ -192,12 +192,12 @@ function renderMainImage() {
   }
 }
 
-function handleEvent() {;
-  SONG_LIST.sort((a, b) => {
-    const aRand = Math.random() + a.weight/100;
-    const bRand = Math.random() + b.weight/100;
-    return bRand - aRand;
-  });
+function handleEvent() {
+  // SONG_LIST.sort((a, b) => {
+  //   const aRand = Math.random() + a.weight/100;
+  //   const bRand = Math.random() + b.weight/100;
+  //   return bRand - aRand;
+  // });
 
   $('audio').attr('src', SONG_LIST[SONG_TRACK].path);
 
